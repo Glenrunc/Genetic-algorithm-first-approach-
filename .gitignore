@@ -1,0 +1,6 @@
+# Ignore this extension
+*.docx
+*.exe
+*.o
+.vscode
+
