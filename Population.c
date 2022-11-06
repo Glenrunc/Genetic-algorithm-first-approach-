@@ -1,8 +1,9 @@
 #include "Population.h"
 
-int pui(int x , int y){
+int pui(int x, int y)
+{
     int r = 1;
-    while(y != 0){
+    while (y != 0) {
         r = r * x;
         y--;
     }
@@ -14,7 +15,7 @@ ListBit ajouterqBit(ListBit l, Bit value)
     ListBit new = (Individu*)malloc(sizeof(Individu));
     new->value = value;
     new->next = NULL;
-    
+
     if (l != NULL) {
         ListBit temp = l;
         while (temp->next != NULL) {
@@ -64,35 +65,38 @@ ListBit initializeIndivRecurssif(ListBit l, int longIndiv)
     }
 }
 
-int decodageIndividu(ListBit l,int longIndiv){
+int decodageIndividu(ListBit l, int longIndiv)
+{
     int valueIndiv = 0;
     ListBit temp = l;
-    while(temp != NULL){
+    while (temp != NULL) {
         longIndiv--;
-        valueIndiv = valueIndiv + pui(2,longIndiv) * temp->value;
+        valueIndiv = valueIndiv + pui(2, longIndiv) * temp->value;
         temp = temp->next;
     }
 
     return valueIndiv;
 }
 
-float qualiteIndiv(int valeurIndiv, int longIndiv){
+float qualiteIndiv(int valeurIndiv, int longIndiv)
+{
     float X = 0;
     float r = 0;
-    X = (valeurIndiv/(float)(pui(2,longIndiv)))*(B-A) +A;
-    r = -(X*X);
+    X = (valeurIndiv / (float)(pui(2, longIndiv))) * (B - A) + A;
+    r = -(X * X);
     return r;
 }
 
-void croisementIdiv(ListBit l1, ListBit l2, float pCroise){
-    
+void croisementIdiv(ListBit l1, ListBit l2, float pCroise)
+{
+
     ListBit temp1, temp2;
     temp1 = l1;
     temp2 = l2;
     Bit temp;
 
-    while(temp1 != NULL){
-        if (pCroise * 100 > rand()%100){
+    while (temp1 != NULL) {
+        if (pCroise * 100 > rand() % 100) {
             temp = temp1->value;
             temp1->value = temp2->value;
             temp2->value = temp;
@@ -102,72 +106,71 @@ void croisementIdiv(ListBit l1, ListBit l2, float pCroise){
     }
 }
 
-ListIndiv ajouterqIndiv(ListIndiv Popu, int longIndiv){
+ListIndiv ajouterqIndiv(ListIndiv Popu, int longIndiv)
+{
 
-    
     ListIndiv newIndiv = (Population*)malloc(sizeof(Population));
-    newIndiv->Indiv = initializeIndivRecurssif(newIndiv->Indiv,longIndiv);
+    newIndiv->Indiv = initializeIndivRecurssif(newIndiv->Indiv, longIndiv);
     newIndiv->next = NULL;
 
-    if (Popu != NULL){
+    if (Popu != NULL) {
 
         ListIndiv temp = Popu;
-        while(temp->next != NULL){
+        while (temp->next != NULL) {
             temp = temp->next;
         }
 
         temp->next = newIndiv;
-    }else
-    {
+    } else {
         Popu = newIndiv;
     }
 
     return Popu;
 }
 
-ListIndiv initializePopu(ListIndiv Popu, int longPopu, int longIndiv){
+ListIndiv initializePopu(ListIndiv Popu, int longPopu, int longIndiv)
+{
 
-    if(longPopu == 0){
+    if (longPopu == 0) {
         return Popu;
-    }else{
-        Popu = ajouterqIndiv(Popu,longIndiv);
-        return initializePopu(Popu,longPopu-1,longIndiv);
+    } else {
+        Popu = ajouterqIndiv(Popu, longIndiv);
+        return initializePopu(Popu, longPopu - 1, longIndiv);
     }
 }
 
-void affichagePopu(ListIndiv Popu){
-    
+void affichagePopu(ListIndiv Popu)
+{
+
     ListIndiv temp = Popu;
     int i = 1;
-    while(temp != NULL){
-        printf("Individu %d :  ",i);
+    while (temp != NULL) {
+        printf("Individu %d :  ", i);
         affichageIndiv(temp->Indiv);
         i++;
-        temp= temp->next;    
-    }    
-    
+        temp = temp->next;
+    }
 }
 
-// void freePopulation(ListIndiv Popu){
-    
-//     ListIndiv tempP = NULL;
-//     ListBit tempI = NULL;
-    
-        
-//         while(tempP->next->next != NULL){
-//             tempI = tempP->Indiv;
-//             while(tempI->next->next != NULL){
-//                 tempI = tempI->next;    
-//             }
-//             free(tempI->next);
-//             tempI = NULL;
-//         }
-//         free(tempP->next);
-//         tempP->next = NULL;
+void freeIndividu(ListBit* Indiv)
+{
 
-        
-    
-    
-// }
+    ListBit tmp;
+    while (*Indiv) {
+        tmp = (*Indiv)->next;
+        free(*Indiv);
+        *Indiv = tmp;
+    }
+}
 
+void freePopulation(ListIndiv* Popu)
+{
+    ListIndiv tmp;
+    while (*Popu) {
+        tmp = (*Popu)->next;
+        freeIndividu(&((*Popu)->Indiv));
+        free(*Popu);
+        *Popu = tmp;
+    }
+}
 

@@ -82,5 +82,7 @@ ListIndiv initializePopu(ListIndiv Popu, int longPopu, int longIndiv);
 
 void affichagePopu(ListIndiv Popu);
 
-void freePopulation(ListIndiv Popu);
+void freeIndividu(ListBit* Indiv);
+
+void freePopulation(ListIndiv* Popu);
 #endif

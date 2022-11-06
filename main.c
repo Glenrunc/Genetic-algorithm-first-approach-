@@ -11,7 +11,7 @@ int main(){
 
     // affichageIndiv(l1);
     // affichageIndiv(l2);
-
+    // freeIndividu(&l1);
     // croisementIdiv(l1,l2,0.9);
 
     // affichageIndiv(l1);
@@ -22,6 +22,8 @@ int main(){
     Popu1 = initializePopu(Popu1,9,8);
 
     affichagePopu(Popu1);
+
+    freePopulation(&Popu1);
 
     return 0;
   
