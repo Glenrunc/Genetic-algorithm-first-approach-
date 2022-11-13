@@ -65,7 +65,7 @@ ListBit initializeIndivRecurssif(ListBit l, int longIndiv)
     }
 }
 
-int decodageIndividu(ListBit l, int longIndiv)
+int ValueBase2ToBase10(ListBit l, int longIndiv)
 {
     int valueIndiv = 0;
     ListBit temp = l;

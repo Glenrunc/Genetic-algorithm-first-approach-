@@ -70,7 +70,7 @@ ListBit initializeIndivRecurssif(ListBit l, int longIndiv);
  */
 void affichageIndiv(ListBit l);
 
-int decodageIndividu(ListBit l,int longIndiv);
+int ValueBase2ToBase10(ListBit l,int longIndiv);
 
 float qualiteIndiv(int valeurIndiv  , int longIndiv);
 

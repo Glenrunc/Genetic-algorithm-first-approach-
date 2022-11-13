@@ -19,7 +19,7 @@ int main(){
 
     ListIndiv Popu1 = NULL;
 
-    Popu1 = initializePopu(Popu1,9,8);
+    Popu1 = initializePopu(Popu1,10,8);
 
     affichagePopu(Popu1);
 
