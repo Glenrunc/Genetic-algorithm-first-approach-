@@ -41,6 +41,15 @@ lBit initializeIndivRecurssif(lBit l, int longIndiv)
     }
 }
 
+lBit initializeIndivIterration(lBit l, int longIndiv)
+{
+    for (int i = 1; i <= longIndiv; i++) {
+        l = ajouterqBit(l, rand() % 2);
+    }
+
+    return l;
+}
+
 void affichageIndiv(lBit l)
 {
     lBit temp = l;
@@ -100,12 +109,69 @@ void croisementIdiv(individu indiv1, individu indiv2, float pCroise)
     }
 }
 
+popu ajouterqIndiv(popu Popu, int longIndiv)
+{
+
+    popu newIndiv = (population*)malloc(sizeof(population));
+    (newIndiv->indivPopu).indiv = initializeIndivRecurssif((newIndiv->indivPopu).indiv, longIndiv);
+    newIndiv->next = NULL;
+
+    if (Popu != NULL) {
+
+        popu temp = Popu;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+
+        temp->next = newIndiv;
+    } else {
+        Popu = newIndiv;
+    }
+
+    return Popu;
+}
+
+popu initializePopu(popu Popu, int longPopu, int longIndiv)
+{
+
+    if (longPopu == 0) {
+        return Popu;
+    } else {
+        Popu = ajouterqIndiv(Popu, longIndiv);
+        return initializePopu(Popu, longPopu - 1, longIndiv);
+    }
+}
+
+void affichagePopu(popu Popu)
+{
+
+    popu temp = Popu;
+    int i = 1;
+    while (temp != NULL) {
+        printf("Individu %d: " ,i);
+        affichageIndiv((temp->indivPopu).indiv);
+
+        i++;
+        temp = temp->next;
+    }
+}
+
 void freeIndividu(lBit Indiv)
 {
-    if(Indiv == NULL){
+    if (Indiv == NULL) {
         return;
     }
     freeIndividu(Indiv->next);
     free(Indiv);
-  
+}
+
+void freePopulation(popu Popu){
+    
+    if(Popu == NULL){
+        return;
+    }
+    freeIndividu((Popu->indivPopu).indiv);
+    freePopulation(Popu->next);
+    free(Popu);
+
 }

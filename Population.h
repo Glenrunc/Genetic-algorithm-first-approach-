@@ -28,15 +28,28 @@ typedef struct{
     lBit indiv;
 }individu;
 
+typedef struct population{
+    
+    individu indivPopu;
+    struct population* next;
+
+}population;
+
+typedef population* popu;
+
 int pui(int x, int y);
 
 lBit ajouterqBit(lBit l, Bit value);
 
 lBit initializeIndivRecurssif(lBit l, int longIndiv);
-
+lBit initializeIndivIterration(lBit l, int longIndiv);
 void affichageIndiv(lBit l);
 int valueBase2ToBase10(individu indiv1);
 float qualiteIndiv(individu indiv1);
 void croisementIdiv(individu indiv1, individu inidv2, float pCroise);
+popu ajouterqIndiv(popu Popu, int longIndiv);
+popu initializePopu(popu Popu, int longPopu, int longIndiv);
+void affichagePopu(popu Popu);
 void freeIndividu(lBit Indiv);
+void freePopulation(popu Popu);
 #endif
