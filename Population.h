@@ -36,5 +36,7 @@ lBit initializeIndivRecurssif(lBit l, int longIndiv);
 
 void affichageIndiv(lBit l);
 int valueBase2ToBase10(individu indiv1);
-void freeIndividu(lBit* Indiv);
+float qualiteIndiv(individu indiv1);
+void croisementIdiv(individu indiv1, individu inidv2, float pCroise);
+void freeIndividu(lBit Indiv);
 #endif

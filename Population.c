@@ -70,14 +70,42 @@ int valueBase2ToBase10(individu indiv1)
     return valueIndiv;
 }
 
+float qualiteIndiv(individu indiv1)
+{
+    int valeurIndiv = valueBase2ToBase10(indiv1);
+    float X = 0;
+    float r = 0;
+    X = (valeurIndiv / (float)(pui(2, indiv1.longIndiv))) * (B - A) + A;
+    r = -(X * X);
+    return r;
+}
 
-void freeIndividu(lBit* Indiv)
+void croisementIdiv(individu indiv1, individu indiv2, float pCroise)
 {
 
-    lBit tmp;
-    while (*Indiv) {
-        tmp = (*Indiv)->next;
-        free(*Indiv);
-        *Indiv = tmp;
+    lBit l1 = indiv1.indiv;
+    lBit l2 = indiv2.indiv;
+    lBit temp1 = l1;
+    lBit temp2 = l2;
+    Bit temp;
+
+    while (temp1 != NULL) {
+        if (pCroise * 100 > rand() % 100) {
+            temp = temp1->value;
+            temp1->value = temp2->value;
+            temp2->value = temp;
+        }
+        temp1 = temp1->next;
+        temp2 = temp2->next;
     }
+}
+
+void freeIndividu(lBit Indiv)
+{
+    if(Indiv == NULL){
+        return;
+    }
+    freeIndividu(Indiv->next);
+    free(Indiv);
+  
 }
