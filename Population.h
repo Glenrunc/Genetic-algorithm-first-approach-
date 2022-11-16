@@ -8,81 +8,33 @@
 #define A -1
 #define B 1 
 
-
 typedef unsigned char Bit;
-
 /**
- * @brief Structure d'un Individu sous forme de liste chainée  
- * @param value unsigned char qui prend en valeur 0 ou 1 
- * @param next pointeur sur la "structure" suivante  
- *
+ * @brief Structure de donnée sous forme de liste chaînée représentant une liste de bit
+ * 
  */
-typedef struct bit {
+typedef struct bit{
     Bit value;
-    struct bit* next;
+    struct bit* next; 
+}listBit;
 
-} Individu;
+typedef listBit* lBit;
 /**
- * @brief Pointeur sur la liste chainée 
- *
+ * @brief Structure d'un individu
+ * 
  */
-typedef Individu* ListBit;
+typedef struct{
+    int longIndiv;
+    lBit indiv;
+}individu;
 
-typedef struct individu{
-    
-    ListBit Indiv;
-    struct individu* next;
+int pui(int x, int y);
 
-}Population; 
+lBit ajouterqBit(lBit l, Bit value);
 
-typedef Population* ListIndiv ;
+lBit initializeIndivRecurssif(lBit l, int longIndiv);
 
-int pui(int x , int y);
-
-/**
- * @brief Permet d'ajouter en queux dans la liste chainée ListBit 
- *
- * @param l Pointeur sur la liste chainée Individu
- * @param value Valeur a assigner a value
- * @return ListBit pointeur sur la nouvelle liste chainée 
- */
-ListBit ajouterqBit(ListBit l, Bit value);
-/**
- * @brief Initialise de manière ittérative un individu 
- *
- * @param l  Pointeur sur la liste chainée Individu
- * @param longIndiv entier représentant la longueur de l'individu 
- * @return ListBit pointeur sur la nouvelle liste chainée 
- */
-ListBit initializeIndivIterration(ListBit l, int longIndiv);
-/**
- * @brief Initialise de manière récursive un individu 
- *
- * @param l Pointeur sur la liste chainée Individu
- * @param longIndiv entier représentant la longueur de l'individu 
- * @return ListBit pointeur sur la nouvelle liste chainée 
- */
-ListBit initializeIndivRecurssif(ListBit l, int longIndiv);
-/**
- * @brief Affiche un individu 
- *
- * @param l Pointeur sur la liste chainée Individu
- */
-void affichageIndiv(ListBit l);
-
-int ValueBase2ToBase10(ListBit l,int longIndiv);
-
-float qualiteIndiv(int valeurIndiv  , int longIndiv);
-
-void croisementIdiv(ListBit l1, ListBit l2, float pCroise);
-
-ListIndiv ajouterqIndiv(ListIndiv Popu, int longIndiv);
-
-ListIndiv initializePopu(ListIndiv Popu, int longPopu, int longIndiv);
-
-void affichagePopu(ListIndiv Popu);
-
-void freeIndividu(ListBit* Indiv);
-
-void freePopulation(ListIndiv* Popu);
+void affichageIndiv(lBit l);
+int valueBase2ToBase10(individu indiv1);
+void freeIndividu(lBit* Indiv);
 #endif
