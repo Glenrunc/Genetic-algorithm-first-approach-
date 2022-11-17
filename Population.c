@@ -114,6 +114,7 @@ popu ajouterqIndiv(popu Popu, int longIndiv)
 
     popu newIndiv = (population*)malloc(sizeof(population));
     (newIndiv->indivPopu).indiv = initializeIndivRecurssif((newIndiv->indivPopu).indiv, longIndiv);
+    (newIndiv->indivPopu).longIndiv = longIndiv;
     newIndiv->next = NULL;
 
     if (Popu != NULL) {
@@ -148,12 +149,64 @@ void affichagePopu(popu Popu)
     popu temp = Popu;
     int i = 1;
     while (temp != NULL) {
-        printf("Individu %d: " ,i);
+        printf("Individu %d %.2f: ", i,qualiteIndiv(temp->indivPopu));
         affichageIndiv((temp->indivPopu).indiv);
 
         i++;
         temp = temp->next;
     }
+}
+popu findTail(popu Popu)
+{   
+    popu temp = Popu;
+
+    while( temp != NULL && temp->next != NULL){
+        temp = temp->next;
+    }
+    return temp;
+}
+popu partionnement(popu premierIndividu, popu dernierIndividu)
+{
+    popu pivot = premierIndividu;
+    popu avancement = premierIndividu;
+    individu temp;
+    while(avancement != NULL && avancement != dernierIndividu){
+
+        if(qualiteIndiv(avancement->indivPopu) > qualiteIndiv(dernierIndividu->indivPopu)){
+            pivot  = premierIndividu;
+
+            temp = premierIndividu->indivPopu;
+            premierIndividu->indivPopu = avancement->indivPopu;
+            avancement->indivPopu = temp;
+
+            premierIndividu = premierIndividu->next;
+        }
+
+        avancement = avancement->next;
+    }
+    temp = premierIndividu->indivPopu;
+    premierIndividu->indivPopu = dernierIndividu->indivPopu;
+    dernierIndividu->indivPopu = temp;
+
+    return pivot;
+}
+
+void quickSortPopulation(popu premierIndividu, popu dernierIndividu)
+{
+   if(premierIndividu == dernierIndividu){
+        return;
+   }
+    popu pivot = partionnement(premierIndividu,dernierIndividu);
+
+    if(pivot != NULL && pivot->next != NULL){
+        quickSortPopulation(pivot->next,dernierIndividu);
+    }
+
+    if(pivot != NULL  && premierIndividu != pivot){
+        quickSortPopulation(premierIndividu, pivot);
+    }
+
+   
 }
 
 void freeIndividu(lBit Indiv)
@@ -165,13 +218,13 @@ void freeIndividu(lBit Indiv)
     free(Indiv);
 }
 
-void freePopulation(popu Popu){
-    
-    if(Popu == NULL){
+void freePopulation(popu Popu)
+{
+
+    if (Popu == NULL) {
         return;
     }
     freeIndividu((Popu->indivPopu).indiv);
     freePopulation(Popu->next);
     free(Popu);
-
 }

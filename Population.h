@@ -38,9 +38,7 @@ typedef struct population{
 typedef population* popu;
 
 int pui(int x, int y);
-
 lBit ajouterqBit(lBit l, Bit value);
-
 lBit initializeIndivRecurssif(lBit l, int longIndiv);
 lBit initializeIndivIterration(lBit l, int longIndiv);
 void affichageIndiv(lBit l);
@@ -50,6 +48,10 @@ void croisementIdiv(individu indiv1, individu inidv2, float pCroise);
 popu ajouterqIndiv(popu Popu, int longIndiv);
 popu initializePopu(popu Popu, int longPopu, int longIndiv);
 void affichagePopu(popu Popu);
+popu findTail(popu Popu);
+popu partionnement(popu premierIndividu, popu dernierIndividu);
+void quickSortPopulation(popu premierIndividu, popu dernierIndividu);
 void freeIndividu(lBit Indiv);
 void freePopulation(popu Popu);
 #endif
+
