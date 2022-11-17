@@ -228,3 +228,5 @@ void freePopulation(popu Popu)
     freePopulation(Popu->next);
     free(Popu);
 }
+
+//to do refaire quick sort 
