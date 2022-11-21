@@ -20,7 +20,7 @@ int main(){
     // freeIndividu(newIndiv1.indiv);
     // freeIndividu(newIndiv2.indiv);
     popu newPopu = NULL;
-    newPopu = initializePopu(newPopu, 10, 100);
+    newPopu = initializePopu(newPopu, taillePopu, tailleIndiv);
     affichagePopu(newPopu);
     quickSortPopulation(newPopu,findTail(newPopu));
     printf("\n");

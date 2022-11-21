@@ -149,7 +149,7 @@ void affichagePopu(popu Popu)
     popu temp = Popu;
     int i = 1;
     while (temp != NULL) {
-        printf("Individu %d %.2f: ", i,qualiteIndiv(temp->indivPopu));
+        printf("Individu %d %.2f: ", i, qualiteIndiv(temp->indivPopu));
         affichageIndiv((temp->indivPopu).indiv);
 
         i++;
@@ -157,10 +157,10 @@ void affichagePopu(popu Popu)
     }
 }
 popu findTail(popu Popu)
-{   
+{
     popu temp = Popu;
 
-    while( temp != NULL && temp->next != NULL){
+    while (temp != NULL && temp->next != NULL) {
         temp = temp->next;
     }
     return temp;
@@ -170,10 +170,10 @@ popu partionnement(popu premierIndividu, popu dernierIndividu)
     popu pivot = premierIndividu;
     popu avancement = premierIndividu;
     individu temp;
-    while(avancement != NULL && avancement != dernierIndividu){
+    while (avancement != NULL && avancement != dernierIndividu) {
 
-        if(qualiteIndiv(avancement->indivPopu) > qualiteIndiv(dernierIndividu->indivPopu)){
-            pivot  = premierIndividu;
+        if (qualiteIndiv(avancement->indivPopu) > qualiteIndiv(dernierIndividu->indivPopu)) {
+            pivot = premierIndividu;
 
             temp = premierIndividu->indivPopu;
             premierIndividu->indivPopu = avancement->indivPopu;
@@ -193,20 +193,29 @@ popu partionnement(popu premierIndividu, popu dernierIndividu)
 
 void quickSortPopulation(popu premierIndividu, popu dernierIndividu)
 {
-   if(premierIndividu == dernierIndividu){
+    if (premierIndividu == dernierIndividu) {
         return;
-   }
-    popu pivot = partionnement(premierIndividu,dernierIndividu);
+    }
+    popu pivot = partionnement(premierIndividu, dernierIndividu);
 
-    if(pivot != NULL && pivot->next != NULL){
-        quickSortPopulation(pivot->next,dernierIndividu);
+    if (pivot != NULL && pivot->next != NULL) {
+        quickSortPopulation(pivot->next, dernierIndividu);
     }
 
-    if(pivot != NULL  && premierIndividu != pivot){
+    if (pivot != NULL && premierIndividu != pivot) {
         quickSortPopulation(premierIndividu, pivot);
     }
-
-   
+}
+popu tSelect(popu Popu, int tSelect, int longPopu)
+{   
+    int i = 0;
+    if ((longPopu - tSelect) < 0) {
+        return Popu;
+    } else {
+        i = tSelect;
+        popu newPopu = (popu)malloc(sizeof(population));
+        
+    }
 }
 
 void freeIndividu(lBit Indiv)
@@ -229,4 +238,4 @@ void freePopulation(popu Popu)
     free(Popu);
 }
 
-//to do refaire quick sort 
+// to do refaire quick sort

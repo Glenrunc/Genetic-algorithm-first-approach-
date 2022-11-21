@@ -7,6 +7,8 @@
 
 #define A -1
 #define B 1 
+#define taillePopu 10
+#define tailleIndiv 10
 
 typedef unsigned char Bit;
 /**
@@ -51,6 +53,7 @@ void affichagePopu(popu Popu);
 popu findTail(popu Popu);
 popu partionnement(popu premierIndividu, popu dernierIndividu);
 void quickSortPopulation(popu premierIndividu, popu dernierIndividu);
+popu tSelect(popu Popu, int tSelect,int longPopu);
 void freeIndividu(lBit Indiv);
 void freePopulation(popu Popu);
 #endif
