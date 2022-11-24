@@ -52,16 +52,12 @@ lBit initializeIndivIterration(lBit l, int longIndiv)
 
 void affichageIndiv(lBit l)
 {
-    lBit temp = l;
-    if (temp != NULL) {
-        while (temp != NULL) {
-            printf("%d", temp->value);
-            temp = temp->next;
-        }
-    } else {
-        printf("Individu not set");
+    if (l==NULL){
+        return;
+    }else{
+        printf("%d", l->value);
+        affichageIndiv(l->next);
     }
-    printf("\n");
 }
 
 int valueBase2ToBase10(individu indiv1)
@@ -145,15 +141,12 @@ popu initializePopu(popu Popu, int longPopu, int longIndiv)
 
 void affichagePopu(popu Popu)
 {
-
-    popu temp = Popu;
-    int i = 1;
-    while (temp != NULL) {
-        printf("Individu %d %.2f: ", i, qualiteIndiv(temp->indivPopu));
-        affichageIndiv((temp->indivPopu).indiv);
-
-        i++;
-        temp = temp->next;
+    if (Popu==NULL){
+        return;
+    }else{
+        affichageIndiv((Popu->indivPopu).indiv);
+        printf("\n");
+        affichagePopu(Popu->next);
     }
 }
 popu findTail(popu Popu)
@@ -206,17 +199,18 @@ void quickSortPopulation(popu premierIndividu, popu dernierIndividu)
         quickSortPopulation(premierIndividu, pivot);
     }
 }
-popu tSelect(popu Popu, int tSelect, int longPopu)
-{   
-    int i = 0;
-    if ((longPopu - tSelect) < 0) {
-        return Popu;
-    } else {
-        i = tSelect;
-        popu newPopu = (popu)malloc(sizeof(population));
-        
-    }
-}
+// popu tSelect(popu Popu, int tSelect, int longPopu)
+// {   
+//     int i = 0;
+//     if ((longPopu - tSelect) < 0) {
+//         return Popu;
+//     } else {
+//         popu newPopu = ;
+//         while(i<tSelect){
+
+//         }
+//     }
+// }
 
 void freeIndividu(lBit Indiv)
 {
@@ -238,4 +232,3 @@ void freePopulation(popu Popu)
     free(Popu);
 }
 
-// to do refaire quick sort
