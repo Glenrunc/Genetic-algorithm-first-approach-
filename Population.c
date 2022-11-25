@@ -10,7 +10,7 @@ int pui(int x, int y)
     return r;
 }
 
-lBit ajouterqBit(lBit l, Bit value)
+lBit  ajouter_queux_bit(lBit l, Bit value)
 {
     lBit new = (listBit*)malloc(sizeof(listBit));
     new->value = value;
@@ -30,37 +30,37 @@ lBit ajouterqBit(lBit l, Bit value)
     return l;
 }
 
-lBit initializeIndivRecurssif(lBit l, int longIndiv)
+lBit initialize_individu_recurssif(lBit l, int longIndiv)
 {
 
     if (longIndiv == 0) {
         return l;
     } else {
-        l = ajouterqBit(l, rand() % 2);
-        return initializeIndivRecurssif(l, longIndiv - 1);
+        l = ajouter_queux_bit(l, rand() % 2);
+        return initialize_individu_recurssif(l, longIndiv - 1);
     }
 }
 
-lBit initializeIndivIterration(lBit l, int longIndiv)
+lBit initialize_individu_iterration(lBit l, int longIndiv)
 {
     for (int i = 1; i <= longIndiv; i++) {
-        l = ajouterqBit(l, rand() % 2);
+        l = ajouter_queux_bit(l, rand() % 2);
     }
 
     return l;
 }
 
-void affichageIndiv(lBit l)
+void affichage_individu(lBit l)
 {
     if (l==NULL){
         return;
     }else{
         printf("%d", l->value);
-        affichageIndiv(l->next);
+        affichage_individu(l->next);
     }
 }
 
-int valueBase2ToBase10(individu indiv1)
+int valeur_base_2_to_base_10(individu indiv1)
 {
     int valueIndiv = 0;
     int longIndiv = indiv1.longIndiv;
@@ -75,9 +75,9 @@ int valueBase2ToBase10(individu indiv1)
     return valueIndiv;
 }
 
-float qualiteIndiv(individu indiv1)
+float qualite_individu(individu indiv1)
 {
-    int valeurIndiv = valueBase2ToBase10(indiv1);
+    int valeurIndiv = valeur_base_2_to_base_10(indiv1);
     float X = 0;
     float r = 0;
     X = (valeurIndiv / (float)(pui(2, indiv1.longIndiv))) * (B - A) + A;
@@ -85,7 +85,7 @@ float qualiteIndiv(individu indiv1)
     return r;
 }
 
-void croisementIdiv(individu indiv1, individu indiv2, float pCroise)
+void croisement_individu(individu indiv1, individu indiv2, float pCroise)
 {
 
     lBit l1 = indiv1.indiv;
@@ -105,11 +105,11 @@ void croisementIdiv(individu indiv1, individu indiv2, float pCroise)
     }
 }
 
-popu ajouterqIndiv(popu Popu, int longIndiv)
+popu ajouter_queux_individu(popu Popu, int longIndiv)
 {
 
     popu newIndiv = (population*)malloc(sizeof(population));
-    (newIndiv->indivPopu).indiv = initializeIndivRecurssif((newIndiv->indivPopu).indiv, longIndiv);
+    (newIndiv->indivPopu).indiv = initialize_individu_recurssif((newIndiv->indivPopu).indiv, longIndiv);
     (newIndiv->indivPopu).longIndiv = longIndiv;
     newIndiv->next = NULL;
 
@@ -128,28 +128,28 @@ popu ajouterqIndiv(popu Popu, int longIndiv)
     return Popu;
 }
 
-popu initializePopu(popu Popu, int longPopu, int longIndiv)
+popu initialize_population(popu Popu, int longPopu, int longIndiv)
 {
 
     if (longPopu == 0) {
         return Popu;
     } else {
-        Popu = ajouterqIndiv(Popu, longIndiv);
-        return initializePopu(Popu, longPopu - 1, longIndiv);
+        Popu = ajouter_queux_individu(Popu, longIndiv);
+        return initialize_population(Popu, longPopu - 1, longIndiv);
     }
 }
 
-void affichagePopu(popu Popu)
+void affichage_population(popu Popu)
 {
     if (Popu==NULL){
         return;
     }else{
-        affichageIndiv((Popu->indivPopu).indiv);
+        affichage_individu((Popu->indivPopu).indiv);
         printf("\n");
-        affichagePopu(Popu->next);
+        affichage_population(Popu->next);
     }
 }
-popu findTail(popu Popu)
+popu trouver_queux(popu Popu)
 {
     popu temp = Popu;
 
@@ -165,8 +165,8 @@ popu partionnement(popu premierIndividu, popu dernierIndividu)
     individu temp;
     while (avancement != NULL && avancement != dernierIndividu) {
 
-        if (qualiteIndiv(avancement->indivPopu) > qualiteIndiv(dernierIndividu->indivPopu)) {
-            pivot = premierIndividu;
+        if (qualite_individu(avancement->indivPopu) > qualite_individu(dernierIndividu->indivPopu)) {
+            pivot = premierIndividu; // Pour garder le même pivot à chaque fois 
 
             temp = premierIndividu->indivPopu;
             premierIndividu->indivPopu = avancement->indivPopu;
@@ -199,36 +199,43 @@ void quickSortPopulation(popu premierIndividu, popu dernierIndividu)
         quickSortPopulation(premierIndividu, pivot);
     }
 }
-// popu tSelect(popu Popu, int tSelect, int longPopu)
-// {   
-//     int i = 0;
-//     if ((longPopu - tSelect) < 0) {
-//         return Popu;
-//     } else {
-//         popu newPopu = ;
-//         while(i<tSelect){
+void tSelect(popu Popu, int tSelect, int longPopu)
+{   
+    int i = 0;
+    
+    if ((longPopu - tSelect) <= 0) {
+        return;
+    } else {
+        popu temp= Popu;
+        while(i<tSelect-1){
+            temp=temp->next;
+            i++;
+        }
+        free_population(temp->next); // on libère la mémoire des individu en trop 
+        temp->next = NULL;
 
-//         }
-//     }
-// }
+        
+    }
+    return ;
+}
 
-void freeIndividu(lBit Indiv)
+void free_individu(lBit Indiv)
 {
     if (Indiv == NULL) {
         return;
     }
-    freeIndividu(Indiv->next);
+    free_individu(Indiv->next);
     free(Indiv);
 }
 
-void freePopulation(popu Popu)
+void free_population(popu Popu)
 {
 
     if (Popu == NULL) {
         return;
     }
-    freeIndividu((Popu->indivPopu).indiv);
-    freePopulation(Popu->next);
+   free_individu((Popu->indivPopu).indiv);
+    free_population(Popu->next);
     free(Popu);
 }
 

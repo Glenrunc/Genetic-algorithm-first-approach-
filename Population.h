@@ -38,23 +38,130 @@ typedef struct population{
 }population;
 
 typedef population* popu;
-
+/**
+ * @brief 
+ * 
+ * @param x 
+ * @param y 
+ * @return int 
+ */
 int pui(int x, int y);
-lBit ajouterqBit(lBit l, Bit value);
-lBit initializeIndivRecurssif(lBit l, int longIndiv);
-lBit initializeIndivIterration(lBit l, int longIndiv);
-void affichageIndiv(lBit l);
-int valueBase2ToBase10(individu indiv1);
-float qualiteIndiv(individu indiv1);
-void croisementIdiv(individu indiv1, individu inidv2, float pCroise);
-popu ajouterqIndiv(popu Popu, int longIndiv);
-popu initializePopu(popu Popu, int longPopu, int longIndiv);
-void affichagePopu(popu Popu);
-popu findTail(popu Popu);
+/**
+ * @brief 
+ * 
+ * @param l 
+ * @param value 
+ * @return lBit 
+ */
+lBit ajouter_queux_bit(lBit l, Bit value);
+/**
+ * @brief 
+ * 
+ * @param l 
+ * @param longIndiv 
+ * @return lBit 
+ */
+lBit initialize_individu_recurssif(lBit l, int longIndiv);
+/**
+ * @brief 
+ * 
+ * @param l 
+ * @param longIndiv 
+ * @return lBit 
+ */
+lBit initialize_individu_iterration(lBit l, int longIndiv);
+/**
+ * @brief 
+ * 
+ * @param l 
+ */
+void affichage_individu(lBit l);
+/**
+ * @brief 
+ * 
+ * @param indiv1 
+ * @return int 
+ */
+int valeur_base_2_to_base_10(individu indiv1);
+/**
+ * @brief 
+ * 
+ * @param indiv1 
+ * @return float 
+ */
+float qualite_individu(individu indiv1);
+/**
+ * @brief 
+ * 
+ * @param indiv1 
+ * @param inidv2 
+ * @param pCroise 
+ */
+void croisement_individu(individu indiv1, individu inidv2, float pCroise);
+/**
+ * @brief 
+ * 
+ * @param Popu 
+ * @param longIndiv 
+ * @return popu 
+ */
+popu ajouter_queux_individu(popu Popu, int longIndiv);
+/**
+ * @brief 
+ * 
+ * @param Popu 
+ * @param longPopu 
+ * @param longIndiv 
+ * @return popu 
+ */
+popu initialize_population(popu Popu, int longPopu, int longIndiv);
+/**
+ * @brief 
+ * 
+ * @param Popu 
+ */
+void affichage_population(popu Popu);
+/**
+ * @brief 
+ * 
+ * @param Popu 
+ * @return popu 
+ */
+popu trouver_queux(popu Popu);
+/**
+ * @brief 
+ * 
+ * @param premierIndividu 
+ * @param dernierIndividu 
+ * @return popu 
+ */
 popu partionnement(popu premierIndividu, popu dernierIndividu);
-void quickSortPopulation(popu premierIndividu, popu dernierIndividu);
-popu tSelect(popu Popu, int tSelect,int longPopu);
-void freeIndividu(lBit Indiv);
-void freePopulation(popu Popu);
+/**
+ * @brief 
+ * 
+ * @param premierIndividu 
+ * @param dernierIndividu 
+ */
+void quick_sort_population(popu premierIndividu, popu dernierIndividu);
+/**
+ * @brief 
+ * 
+ * @param Popu 
+ * @param tSelect 
+ * @param longPopu 
+ */
+void tSelect(popu Popu, int tSelect,int longPopu);
+/**
+ * @brief 
+ * 
+ * @param Indiv 
+ */
+void free_individu(lBit Indiv);
+/**
+ * @brief 
+ * 
+ * @param Popu 
+ */
+void free_population(popu Popu);
 #endif
 
