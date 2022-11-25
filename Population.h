@@ -163,5 +163,12 @@ void free_individu(lBit Indiv);
  * @param Popu 
  */
 void free_population(popu Popu);
+/**
+ * @brief 
+ * 
+ * @param Individu 
+ * @return individu 
+ */
+individu copie_individu(individu Individu);
 #endif
 

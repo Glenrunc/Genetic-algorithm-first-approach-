@@ -207,12 +207,13 @@ void tSelect(popu Popu, int tSelect, int longPopu)
         return;
     } else {
         popu temp= Popu;
-        while(i<tSelect-1){
+        while(i<tSelect){
             temp=temp->next;
             i++;
         }
-        free_population(temp->next); // on libère la mémoire des individu en trop 
-        temp->next = NULL;
+        
+         
+        
 
         
     }
@@ -234,8 +235,24 @@ void free_population(popu Popu)
     if (Popu == NULL) {
         return;
     }
-   free_individu((Popu->indivPopu).indiv);
+    free_individu((Popu->indivPopu).indiv);
     free_population(Popu->next);
     free(Popu);
 }
+
+
+individu copie_individu(individu Individu){ 
+    individu new_individu;
+    new_individu.longIndiv = Individu.longIndiv; 
+    new_individu.indiv =NULL;
+    lBit temp = Individu.indiv;
+
+    while(temp!=NULL){
+        new_individu.indiv = ajouter_queux_bit(new_individu.indiv,temp->value);
+        temp=temp->next;
+    }    
+
+    return new_individu;
+}
+
 
