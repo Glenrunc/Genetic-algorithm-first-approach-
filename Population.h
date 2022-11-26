@@ -170,5 +170,22 @@ void free_population(popu Popu);
  * @return individu 
  */
 individu copie_individu(individu Individu);
+/**
+ * @brief 
+ * 
+ * @param P1 
+ * @return individu 
+ */
+individu selection_random_individu(popu P1,int longPopu);
+/**
+ * @brief 
+ * 
+ * @param P1 
+ * @param taille_popu 
+ * @param pCroise 
+ * @return popu 
+ */
+popu nGen(popu P1,int taille_popu,float pCroise);
+
 #endif
 

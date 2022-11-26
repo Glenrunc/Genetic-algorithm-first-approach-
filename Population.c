@@ -209,17 +209,17 @@ void tSelect(popu Popu, int tSelect, int longPopu)
         popu demarrage= Popu;
         popu avancement  = Popu;
         while(i<tSelect){
-            demarrage=demarrage->next;
+            demarrage=demarrage->next; //  On se place à la position tSelect 
             i++;
         }
-        while(demarrage != NULL){
+        while(demarrage != NULL){ // Puis on copie chaque individu en partant du début 
             free_individu((demarrage->indivPopu).indiv);
             demarrage->indivPopu = copie_individu(avancement->indivPopu);
             demarrage=demarrage->next;
             avancement= avancement->next;
         }
     }
-    return ;
+    return;
 }
 
 void free_individu(lBit Indiv)
@@ -255,6 +255,28 @@ individu copie_individu(individu Individu){
     }    
 
     return new_individu;
+}
+
+individu selection_random_individu(popu P1,int longPopu){
+    
+    individu random_individu;
+    popu temp_P1 = P1;
+    int i = 0;
+    int nombre_aleatoire = rand()% longPopu+1; 
+    while(i < nombre_aleatoire){
+        temp_P1=temp_P1->next;
+        i++;
+    }
+
+    random_individu = copie_individu(temp_P1->indivPopu);
+
+    return random_individu;
+}
+
+
+popu nGen(popu P1,int longPopu,float pCroise){
+    popu P2 = NULL;
+
 }
 
 

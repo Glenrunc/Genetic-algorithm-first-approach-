@@ -6,3 +6,4 @@ main.o: main.c Population.h
 	gcc -o main.o -c main.c -W -Wall -pedantic 
 clean:
 	rm -rf *.o *.exe
+	
