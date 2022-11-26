@@ -202,20 +202,22 @@ void quickSortPopulation(popu premierIndividu, popu dernierIndividu)
 void tSelect(popu Popu, int tSelect, int longPopu)
 {   
     int i = 0;
-    
+
     if ((longPopu - tSelect) <= 0) {
         return;
     } else {
-        popu temp= Popu;
+        popu demarrage= Popu;
+        popu avancement  = Popu;
         while(i<tSelect){
-            temp=temp->next;
+            demarrage=demarrage->next;
             i++;
         }
-        
-         
-        
-
-        
+        while(demarrage != NULL){
+            free_individu((demarrage->indivPopu).indiv);
+            demarrage->indivPopu = copie_individu(avancement->indivPopu);
+            demarrage=demarrage->next;
+            avancement= avancement->next;
+        }
     }
     return ;
 }
