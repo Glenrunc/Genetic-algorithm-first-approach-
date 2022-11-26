@@ -7,8 +7,9 @@
 
 #define A -1
 #define B 1 
-#define taille_population 10
-#define taille_individu 10
+#define taille_individu 8
+#define probabilite_croisement 0.5
+
 
 
 typedef unsigned char Bit;
@@ -52,7 +53,7 @@ int pui(int x, int y);
  * 
  * @param l 
  * @param value 
- * @return lBit 
+ * @return lBit Retourne un pointeur sur sur liste de Bit représentant un individu  
  */
 lBit ajouter_queux_bit(lBit l, Bit value);
 /**
@@ -60,7 +61,7 @@ lBit ajouter_queux_bit(lBit l, Bit value);
  * 
  * @param l 
  * @param longIndiv 
- * @return lBit 
+ * @return lBit Retourne un pointeur sur sur liste de Bit représentant un individu  
  */
 lBit initialize_individu_recurssif(lBit l, int longIndiv);
 /**
@@ -68,7 +69,7 @@ lBit initialize_individu_recurssif(lBit l, int longIndiv);
  * 
  * @param l 
  * @param longIndiv 
- * @return lBit 
+ * @return lBit Retourne un pointeur sur sur liste de Bit représentant un individu  
  */
 lBit initialize_individu_iterration(lBit l, int longIndiv);
 /**

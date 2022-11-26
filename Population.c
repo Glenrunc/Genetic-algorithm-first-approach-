@@ -145,6 +145,7 @@ void affichage_population(popu Popu)
         return;
     }else{
         affichage_individu((Popu->indivPopu).indiv);
+        printf(" qualite %.2f",qualite_individu(Popu->indivPopu));
         printf("\n");
         affichage_population(Popu->next);
     }
@@ -184,7 +185,7 @@ popu partionnement(popu premierIndividu, popu dernierIndividu)
     return pivot;
 }
 
-void quickSortPopulation(popu premierIndividu, popu dernierIndividu)
+void quick_sort_population(popu premierIndividu, popu dernierIndividu)
 {
     if (premierIndividu == dernierIndividu) {
         return;
@@ -192,11 +193,11 @@ void quickSortPopulation(popu premierIndividu, popu dernierIndividu)
     popu pivot = partionnement(premierIndividu, dernierIndividu);
 
     if (pivot != NULL && pivot->next != NULL) {
-        quickSortPopulation(pivot->next, dernierIndividu);
+        quick_sort_population(pivot->next, dernierIndividu);
     }
 
     if (pivot != NULL && premierIndividu != pivot) {
-        quickSortPopulation(premierIndividu, pivot);
+        quick_sort_population(premierIndividu, pivot);
     }
 }
 void tSelect(popu Popu, int tSelect, int longPopu)
