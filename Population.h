@@ -7,8 +7,9 @@
 
 #define A -1
 #define B 1 
-#define taillePopu 10
-#define tailleIndiv 10
+#define taille_population 10
+#define taille_individu 10
+
 
 typedef unsigned char Bit;
 /**
@@ -180,12 +181,27 @@ individu selection_random_individu(popu P1,int longPopu);
 /**
  * @brief 
  * 
+ */
+popu initialize_population_vide(popu P1,int longPopu,int longIndiv);
+/**
+ * @brief 
+ * 
  * @param P1 
  * @param taille_popu 
  * @param pCroise 
  * @return popu 
  */
-popu nGen(popu P1,int taille_popu,float pCroise);
+popu croisement_population(popu P1,int longPopu,int longIndiv,float pCroise);
+/**
+ * @brief 
+ * 
+ * @param P1 
+ * @param longPopu 
+ * @param longIndiv 
+ * @param pCroise 
+ * @return popu 
+ */
+popu nGen(popu P1,int longPopu,int longIndiv,float pCroise,int nombre_generation);
 
 #endif
 

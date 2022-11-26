@@ -257,26 +257,98 @@ individu copie_individu(individu Individu){
     return new_individu;
 }
 
+//Peut être opti
+popu initialize_population_vide(popu P1,int longPopu,int longIndiv){
+   int i = 0;
+   P1 = (popu)malloc(sizeof(population));
+   (P1->indivPopu).longIndiv =longIndiv;
+   (P1->indivPopu).indiv=NULL;
+   P1->next =NULL;
+   popu temp = P1;
+   
+   while (i<longPopu-1){
+        temp->next = (popu)malloc(sizeof(population));
+        (temp->indivPopu).longIndiv =longIndiv;
+        (temp->indivPopu).indiv=NULL;
+        temp->next->next = NULL;
+        temp=temp->next;
+        i++;
+    }
+    
+    return P1;
+}
+
 individu selection_random_individu(popu P1,int longPopu){
     
     individu random_individu;
     popu temp_P1 = P1;
     int i = 0;
     int nombre_aleatoire = rand()% longPopu+1; 
-    while(i < nombre_aleatoire){
+    while(i < nombre_aleatoire-1){
         temp_P1=temp_P1->next;
         i++;
     }
 
     random_individu = copie_individu(temp_P1->indivPopu);
-
+    
     return random_individu;
 }
 
-
-popu nGen(popu P1,int longPopu,float pCroise){
+//peu être optimisé
+popu croisement_population(popu P1,int longPopu,int longIndiv,float pCroise){
+    
+    int i = 0;
     popu P2 = NULL;
+    P2 = initialize_population_vide(P2,longPopu,longIndiv);
+    popu temp_p2 = P2;
+    individu individu_temporaire_1;
+    individu individu_temporaire_2;
 
+    if(longPopu%2 == 0){
+        
+        while(i<longPopu){
+            individu_temporaire_1 = selection_random_individu(P1,longPopu);
+            individu_temporaire_2 = selection_random_individu(P1,longPopu);
+            croisement_individu(individu_temporaire_1,individu_temporaire_2,pCroise);
+            temp_p2->indivPopu = individu_temporaire_1;
+            temp_p2->next->indivPopu = individu_temporaire_2;
+            temp_p2 =temp_p2->next->next;
+            i=i+2;
+        }
+    }else{
+        while(i<longPopu-1){
+            individu_temporaire_1 = selection_random_individu(P1,longPopu);
+            individu_temporaire_2 = selection_random_individu(P1,longPopu);
+            croisement_individu(individu_temporaire_1,individu_temporaire_2,pCroise);
+            temp_p2->indivPopu = individu_temporaire_1;
+            temp_p2->next->indivPopu = individu_temporaire_2;
+            temp_p2 =temp_p2->next->next;
+            i = i +2;
+        }
+        individu_temporaire_1 = selection_random_individu(P1,longPopu);
+        individu_temporaire_2 = selection_random_individu(P1,longPopu);
+        croisement_individu(individu_temporaire_1,individu_temporaire_2,pCroise);
+        if(qualite_individu(individu_temporaire_1)>qualite_individu(individu_temporaire_2)){
+            temp_p2->indivPopu=individu_temporaire_1;
+            free_individu(individu_temporaire_2.indiv);
+        }else{
+            temp_p2->indivPopu=individu_temporaire_2;
+            free_individu(individu_temporaire_1.indiv);
+        }
+    }
+    return P2;
+}
+
+ popu nGen(popu P1,int longPopu,int longIndiv,float pCroise,int nombre_generation){ 
+    int i = 0;
+    popu temp =NULL;
+    while(i<nombre_generation){
+        temp = P1;
+        P1 = croisement_population(P1,longPopu,longIndiv,pCroise);
+        free_population(temp);
+        i++;
+    }
+    return P1;
 }
 
 
