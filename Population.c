@@ -1,6 +1,6 @@
 #include "Population.h"
 
-int pui(int x, int y)
+int puissance(int x, int y)
 {
     int r = 1;
     while (y != 0) {
@@ -41,7 +41,7 @@ lBit initialize_individu_recurssif(lBit l, int longIndiv)
     }
 }
 
-lBit initialize_individu_iterration(lBit l, int longIndiv)
+lBit initialize_individu_iteration(lBit l, int longIndiv)
 {
     for (int i = 1; i <= longIndiv; i++) {
         l = ajouter_queux_bit(l, rand() % 2);
@@ -167,7 +167,7 @@ popu partionnement(popu premierIndividu, popu dernierIndividu)
     while (avancement != NULL && avancement != dernierIndividu) {
 
         if (qualite_individu(avancement->indivPopu) > qualite_individu(dernierIndividu->indivPopu)) {
-            pivot = premierIndividu; // Pour garder le même pivot à chaque fois 
+            pivot = premierIndividu;
 
             temp = premierIndividu->indivPopu;
             premierIndividu->indivPopu = avancement->indivPopu;
@@ -178,7 +178,7 @@ popu partionnement(popu premierIndividu, popu dernierIndividu)
 
         avancement = avancement->next;
     }
-    temp = premierIndividu->indivPopu;
+    temp = premierIndividu->indivPopu; // on place le pivot à la bonne place 
     premierIndividu->indivPopu = dernierIndividu->indivPopu;
     dernierIndividu->indivPopu = temp;
 
@@ -340,12 +340,14 @@ popu croisement_population(popu P1,int longPopu,int longIndiv,float pCroise){
     return P2;
 }
 
- popu nGen(popu P1,int longPopu,int longIndiv,float pCroise,int nombre_generation){ 
+ popu nGen(popu P1,int longPopu,int longIndiv,float pCroise,int taux_selection,int nombre_generation){ 
     int i = 0;
     popu temp =NULL;
     while(i<nombre_generation){
         temp = P1;
         P1 = croisement_population(P1,longPopu,longIndiv,pCroise);
+        quick_sort_population(P1,trouver_queux(P1));
+        tSelect(P1,taux_selection,longPopu);
         free_population(temp);
         i++;
     }
