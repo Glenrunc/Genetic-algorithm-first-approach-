@@ -9,7 +9,7 @@
 #define B 1 
 #define taille_individu 8
 #define probabilite_croisement 0.5
-
+#define PUI(n)  (1<<n)
 
 
 typedef unsigned char Bit;
@@ -43,14 +43,7 @@ typedef struct population{
 }population;
 
 typedef population* popu;
-/**
- * @brief Fonction puissance de x
- * 
- * @param x entier 
- * @param y entier 
- * @return entier
- */
-int puissance(int x, int y);
+
 /**
  * @brief ajoute un bit à la liste chaînée listbit
  * 
@@ -58,7 +51,7 @@ int puissance(int x, int y);
  * @param value unsigned char [0,1]
  * @return lBit Retourne un pointeur sur sur liste de Bit représentant un individu  
  */
-lBit ajouter_queux_bit(lBit l, Bit value);
+lBit ajouter_queue_bit(lBit l, Bit value);
 /**
  * @brief Initialise un individu récursivement 
  * 
@@ -110,7 +103,7 @@ void croisement_individu(individu indiv1, individu inidv2, float pCroise);
  * @param longIndiv Taille d'un individu i.e nombre de Bit
  * @return popu Nouvelle liste chaînée avec nouvel individu
  */
-popu ajouter_queux_individu(popu Popu, int longIndiv);
+popu ajouter_queue_individu(popu Popu, int longIndiv);
 /**
  * @brief Initialise une population
  * 
@@ -132,7 +125,7 @@ void affichage_population(popu Popu);
  * @param Popu Pointeur sur liste chaînée population 
  * @return popu Pointeur sur le dernier individu de la population  
  */
-popu trouver_queux(popu Popu);
+popu trouver_queue(popu Popu);
 /**
  * @brief Fonction utile au quickSort-> permet de partionner selon un "pivot" i.e toutes les valeurs inférieur au pivot se trouve à gauche de celui
  * si, les autres à droite 

@@ -1,16 +1,7 @@
 #include "Population.h"
 
-int puissance(int x, int y)
-{
-    int r = 1;
-    while (y != 0) {
-        r = r * x;
-        y--;
-    }
-    return r;
-}
 
-lBit  ajouter_queux_bit(lBit l, Bit value)
+lBit  ajouter_queue_bit(lBit l, Bit value)
 {
     lBit new = (listBit*)malloc(sizeof(listBit));
     new->value = value;
@@ -36,7 +27,7 @@ lBit initialize_individu_recurssif(lBit l, int longIndiv)
     if (longIndiv == 0) {
         return l;
     } else {
-        l = ajouter_queux_bit(l, rand() % 2);
+        l = ajouter_queue_bit(l, rand() % 2);
         return initialize_individu_recurssif(l, longIndiv - 1);
     }
 }
@@ -44,7 +35,7 @@ lBit initialize_individu_recurssif(lBit l, int longIndiv)
 lBit initialize_individu_iteration(lBit l, int longIndiv)
 {
     for (int i = 1; i <= longIndiv; i++) {
-        l = ajouter_queux_bit(l, rand() % 2);
+        l = ajouter_queue_bit(l, rand() % 2);
     }
 
     return l;
@@ -68,7 +59,7 @@ int valeur_base_2_to_base_10(individu indiv1)
     lBit temp = l;
     while (temp != NULL) {
         longIndiv--;
-        valueIndiv = valueIndiv + pui(2, longIndiv) * temp->value;
+        valueIndiv = valueIndiv + PUI(longIndiv) * temp->value;
         temp = temp->next;
     }
 
@@ -78,11 +69,8 @@ int valeur_base_2_to_base_10(individu indiv1)
 float qualite_individu(individu indiv1)
 {
     int valeurIndiv = valeur_base_2_to_base_10(indiv1);
-    float X = 0;
-    float r = 0;
-    X = (valeurIndiv / (float)(pui(2, indiv1.longIndiv))) * (B - A) + A;
-    r = -(X * X);
-    return r;
+    float X = (valeurIndiv / (float)(PUI(indiv1.longIndiv))) * (B - A) + A;
+    return -(X * X);
 }
 
 void croisement_individu(individu indiv1, individu indiv2, float pCroise)
@@ -105,7 +93,7 @@ void croisement_individu(individu indiv1, individu indiv2, float pCroise)
     }
 }
 
-popu ajouter_queux_individu(popu Popu, int longIndiv)
+popu ajouter_queue_individu(popu Popu, int longIndiv)
 {
 
     popu newIndiv = (population*)malloc(sizeof(population));
@@ -134,7 +122,7 @@ popu initialize_population(popu Popu, int longPopu, int longIndiv)
     if (longPopu == 0) {
         return Popu;
     } else {
-        Popu = ajouter_queux_individu(Popu, longIndiv);
+        Popu = ajouter_queue_individu(Popu, longIndiv);
         return initialize_population(Popu, longPopu - 1, longIndiv);
     }
 }
@@ -150,7 +138,7 @@ void affichage_population(popu Popu)
         affichage_population(Popu->next);
     }
 }
-popu trouver_queux(popu Popu)
+popu trouver_queue(popu Popu)
 {
     popu temp = Popu;
 
@@ -200,6 +188,7 @@ void quick_sort_population(popu premierIndividu, popu dernierIndividu)
         quick_sort_population(premierIndividu, pivot);
     }
 }
+
 void tSelect(popu Popu, int tSelect, int longPopu)
 {   
     int i = 0;
@@ -251,7 +240,7 @@ individu copie_individu(individu Individu){
     lBit temp = Individu.indiv;
 
     while(temp!=NULL){
-        new_individu.indiv = ajouter_queux_bit(new_individu.indiv,temp->value);
+        new_individu.indiv = ajouter_queue_bit(new_individu.indiv,temp->value);
         temp=temp->next;
     }    
 
@@ -295,7 +284,7 @@ individu selection_random_individu(popu P1,int longPopu){
     return random_individu;
 }
 
-//peu être optimisé
+//TODO: a optimiser
 popu croisement_population(popu P1,int longPopu,int longIndiv,float pCroise){
     
     int i = 0;
@@ -304,52 +293,35 @@ popu croisement_population(popu P1,int longPopu,int longIndiv,float pCroise){
     popu temp_p2 = P2;
     individu individu_temporaire_1;
     individu individu_temporaire_2;
-
-    if(longPopu%2 == 0){
-        
-        while(i<longPopu){
-            individu_temporaire_1 = selection_random_individu(P1,longPopu);
-            individu_temporaire_2 = selection_random_individu(P1,longPopu);
-            croisement_individu(individu_temporaire_1,individu_temporaire_2,pCroise);
-            temp_p2->indivPopu = individu_temporaire_1;
-            temp_p2->next->indivPopu = individu_temporaire_2;
-            temp_p2 =temp_p2->next->next;
-            i=i+2;
-        }
-    }else{
-        while(i<longPopu-1){
-            individu_temporaire_1 = selection_random_individu(P1,longPopu);
-            individu_temporaire_2 = selection_random_individu(P1,longPopu);
-            croisement_individu(individu_temporaire_1,individu_temporaire_2,pCroise);
-            temp_p2->indivPopu = individu_temporaire_1;
-            temp_p2->next->indivPopu = individu_temporaire_2;
-            temp_p2 =temp_p2->next->next;
-            i = i +2;
-        }
+    
+    while(i<longPopu){
         individu_temporaire_1 = selection_random_individu(P1,longPopu);
         individu_temporaire_2 = selection_random_individu(P1,longPopu);
         croisement_individu(individu_temporaire_1,individu_temporaire_2,pCroise);
-        if(qualite_individu(individu_temporaire_1)>qualite_individu(individu_temporaire_2)){
-            temp_p2->indivPopu=individu_temporaire_1;
-            free_individu(individu_temporaire_2.indiv);
-        }else{
-            temp_p2->indivPopu=individu_temporaire_2;
-            free_individu(individu_temporaire_1.indiv);
+        temp_p2->indivPopu = individu_temporaire_1;
+        temp_p2 = temp_p2->next;
+        ++i;
+
+        if (i != longPopu) {
+            temp_p2->indivPopu = individu_temporaire_2;
+            temp_p2 = temp_p2->next;
+            ++i;
         }
     }
+
     return P2;
 }
 
- popu nGen(popu P1,int longPopu,int longIndiv,float pCroise,int taux_selection,int nombre_generation){ 
+popu nGen(popu P1,int longPopu,int longIndiv,float pCroise,int taux_selection,int nombre_generation){ 
     int i = 0;
     popu temp =NULL;
     while(i<nombre_generation){
         temp = P1;
         P1 = croisement_population(P1,longPopu,longIndiv,pCroise);
-        quick_sort_population(P1,trouver_queux(P1));
+        quick_sort_population(P1,trouver_queue(P1));
         tSelect(P1,taux_selection,longPopu);
         free_population(temp);
-        i++;
+        ++i;
     }
     return P1;
 }
