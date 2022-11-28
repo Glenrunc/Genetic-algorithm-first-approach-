@@ -1,98 +1,13 @@
 #include "Population.h"
 
 
-lBit  ajouter_queue_bit(lBit l, Bit value)
-{
-    lBit new = (listBit*)malloc(sizeof(listBit));
-    new->value = value;
-    new->next = NULL;
-
-    if (l != NULL) {
-        lBit temp = l;
-        while (temp->next != NULL) {
-            temp = temp->next;
-        }
-        temp->next = new;
-
-    } else {
-        l = new;
-    }
-
-    return l;
-}
-
-lBit initialize_individu_recurssif(lBit l, int longIndiv)
-{
-
-    if (longIndiv == 0) {
-        return l;
-    } else {
-        l = ajouter_queue_bit(l, rand() % 2);
-        return initialize_individu_recurssif(l, longIndiv - 1);
-    }
-}
-
-lBit initialize_individu_iteration(lBit l, int longIndiv)
-{
-    for (int i = 1; i <= longIndiv; i++) {
-        l = ajouter_queue_bit(l, rand() % 2);
-    }
-
-    return l;
-}
-
-void affichage_individu(lBit l)
-{
-    if (l==NULL){
-        return;
-    }else{
-        printf("%d", l->value);
-        affichage_individu(l->next);
-    }
-}
-
-int valeur_base_2_to_base_10(individu indiv1)
-{
-    int valueIndiv = 0;
-    int longIndiv = indiv1.longIndiv;
-    lBit l = indiv1.indiv;
-    lBit temp = l;
-    while (temp != NULL) {
-        longIndiv--;
-        valueIndiv = valueIndiv + PUI(longIndiv) * temp->value;
-        temp = temp->next;
-    }
-
-    return valueIndiv;
-}
-
-float qualite_individu(individu indiv1)
-{
-    int valeurIndiv = valeur_base_2_to_base_10(indiv1);
-    float X = (valeurIndiv / (float)(PUI(indiv1.longIndiv))) * (B - A) + A;
-    return -(X * X);
-}
-
-void croisement_individu(individu indiv1, individu indiv2, float pCroise)
-{
-
-    lBit l1 = indiv1.indiv;
-    lBit l2 = indiv2.indiv;
-    lBit temp1 = l1;
-    lBit temp2 = l2;
-    Bit temp;
-
-    while (temp1 != NULL) {
-        if (pCroise * 100 > rand() % 100) {
-            temp = temp1->value;
-            temp1->value = temp2->value;
-            temp2->value = temp;
-        }
-        temp1 = temp1->next;
-        temp2 = temp2->next;
-    }
-}
-
+/**
+ * @brief Ajoute en queux un individu à une population
+ *
+ * @param Popu Pointeur sur liste chaînée population
+ * @param longIndiv Taille d'un individu i.e nombre de Bit
+ * @return popu Nouvelle liste chaînée avec nouvel individu
+ */
 popu ajouter_queue_individu(popu Popu, int longIndiv)
 {
 
@@ -116,6 +31,14 @@ popu ajouter_queue_individu(popu Popu, int longIndiv)
     return Popu;
 }
 
+/**
+ * @brief Initialise une population
+ *
+ * @param Popu Pointeur sur liste chaînée population
+ * @param longPopu taille de la population
+ * @param longIndiv Taille d'un individu i.e nombre de Bit
+ * @return popu Population initialiser
+ */
 popu initialize_population(popu Popu, int longPopu, int longIndiv)
 {
 
@@ -127,17 +50,30 @@ popu initialize_population(popu Popu, int longPopu, int longIndiv)
     }
 }
 
+/**
+ * @brief Affiche la population
+ *
+ * @param Popu Pointeur sur liste chaînée population
+ */
 void affichage_population(popu Popu)
 {
-    if (Popu==NULL){
+    if (Popu == NULL) {
         return;
-    }else{
+    } else {
         affichage_individu((Popu->indivPopu).indiv);
-        printf(" qualite %.2f",qualite_individu(Popu->indivPopu));
+        ;
+        printf(" qualite %.2f", qualite_individu(Popu->indivPopu));
         printf("\n");
         affichage_population(Popu->next);
     }
 }
+
+/**
+ * @brief Trouve le pointeur sur le dernier individu de la population
+ *
+ * @param Popu Pointeur sur liste chaînée population
+ * @return popu Pointeur sur le dernier individu de la population
+ */
 popu trouver_queue(popu Popu)
 {
     popu temp = Popu;
@@ -147,6 +83,15 @@ popu trouver_queue(popu Popu)
     }
     return temp;
 }
+
+/**
+ * @brief Fonction utile au quickSort-> permet de partionner selon un "pivot" i.e toutes les valeurs inférieur au pivot se trouve à gauche de celui
+ * si, les autres à droite
+ *
+ * @param premierIndividu Pointeur sur le premier individu
+ * @param dernierIndividu Pointeur sur le dernier individu
+ * @return popu Retourne la liste partionner
+ */
 popu partionnement(popu premierIndividu, popu dernierIndividu)
 {
     popu pivot = premierIndividu;
@@ -166,13 +111,19 @@ popu partionnement(popu premierIndividu, popu dernierIndividu)
 
         avancement = avancement->next;
     }
-    temp = premierIndividu->indivPopu; // on place le pivot à la bonne place 
+    temp = premierIndividu->indivPopu; // on place le pivot à la bonne place
     premierIndividu->indivPopu = dernierIndividu->indivPopu;
     dernierIndividu->indivPopu = temp;
 
     return pivot;
 }
 
+/**
+ * @brief Trie la population en fonction des qualités des individus à l'aide de l'algorithme du quickSort
+ *
+ * @param premierIndividu Pointeur sur le premier individu
+ * @param dernierIndividu Pointeur sur le dernier individu
+ */
 void quick_sort_population(popu premierIndividu, popu dernierIndividu)
 {
     if (premierIndividu == dernierIndividu) {
@@ -189,29 +140,41 @@ void quick_sort_population(popu premierIndividu, popu dernierIndividu)
     }
 }
 
+/**
+ * @brief Selectionne les individu parmis une population et un taux de selection
+ *
+ * @param Popu Pointeur sur liste chaînée population
+ * @param tSelect Taux de selection
+ * @param longPopu taille de la population
+ */
 void tSelect(popu Popu, int tSelect, int longPopu)
-{   
+{
     int i = 0;
 
     if ((longPopu - tSelect) <= 0) {
         return;
     } else {
-        popu demarrage= Popu;
-        popu avancement  = Popu;
-        while(i<tSelect){
-            demarrage=demarrage->next; //  On se place à la position tSelect 
+        popu demarrage = Popu;
+        popu avancement = Popu;
+        while (i < tSelect) {
+            demarrage = demarrage->next; //  On se place à la position tSelect
             i++;
         }
-        while(demarrage != NULL){ // Puis on copie chaque individu en partant du début 
+        while (demarrage != NULL) { // Puis on copie chaque individu en partant du début
             free_individu((demarrage->indivPopu).indiv);
             demarrage->indivPopu = copie_individu(avancement->indivPopu);
-            demarrage=demarrage->next;
-            avancement= avancement->next;
+            demarrage = demarrage->next;
+            avancement = avancement->next;
         }
     }
     return;
 }
 
+/**
+ * @brief Libère la mémoire allouée pour un individu
+ *
+ * @param Indiv Pointeur sur liste de bit représentant un individu
+ */
 void free_individu(lBit Indiv)
 {
     if (Indiv == NULL) {
@@ -221,6 +184,11 @@ void free_individu(lBit Indiv)
     free(Indiv);
 }
 
+/**
+ * @brief Libère la mémoire allouée pour une population
+ *
+ * @param Popu Pointeur sur liste chaînée population
+ */
 void free_population(popu Popu)
 {
 
@@ -232,72 +200,97 @@ void free_population(popu Popu)
     free(Popu);
 }
 
-
-individu copie_individu(individu Individu){ 
+/**
+ * @brief Copie un individu
+ *
+ * @param Individu Structure représentant un individu
+ * @return individu
+ */
+individu copie_individu(individu Individu)
+{
     individu new_individu;
-    new_individu.longIndiv = Individu.longIndiv; 
-    new_individu.indiv =NULL;
+    new_individu.longIndiv = Individu.longIndiv;
+    new_individu.indiv = NULL;
     lBit temp = Individu.indiv;
 
-    while(temp!=NULL){
-        new_individu.indiv = ajouter_queue_bit(new_individu.indiv,temp->value);
-        temp=temp->next;
-    }    
+    while (temp != NULL) {
+        new_individu.indiv = ajouter_queue_bit(new_individu.indiv, temp->value);
+        temp = temp->next;
+    }
 
     return new_individu;
 }
 
-//Peut être opti
-popu initialize_population_vide(popu P1,int longPopu,int longIndiv){
-   int i = 0;
-   P1 = (popu)malloc(sizeof(population));
-   (P1->indivPopu).longIndiv =longIndiv;
-   (P1->indivPopu).indiv=NULL;
-   P1->next =NULL;
-   popu temp = P1;
-   
-   while (i<longPopu-1){
-        temp->next = (popu)malloc(sizeof(population));
-        (temp->indivPopu).longIndiv =longIndiv;
-        (temp->indivPopu).indiv=NULL;
-        temp->next->next = NULL;
-        temp=temp->next;
-        i++;
-    }
-    
-    return P1;
-}
+/**
+ * @brief Selectionne un individu aléatoirement dans une population
+ *
+ * @param P1 Pointeur sur population
+ * @return individu choisit aléatoirement
+ */
+individu selection_random_individu(popu P1, int longPopu)
+{
 
-individu selection_random_individu(popu P1,int longPopu){
-    
     individu random_individu;
     popu temp_P1 = P1;
     int i = 0;
-    int nombre_aleatoire = rand()% longPopu+1; 
-    while(i < nombre_aleatoire-1){
-        temp_P1=temp_P1->next;
+    int nombre_aleatoire = rand() % longPopu + 1;
+    while (i < nombre_aleatoire - 1) {
+        temp_P1 = temp_P1->next;
         i++;
     }
 
     random_individu = copie_individu(temp_P1->indivPopu);
-    
+
     return random_individu;
 }
 
-//TODO: a optimiser
-popu croisement_population(popu P1,int longPopu,int longIndiv,float pCroise){
-    
+/**
+ * @brief Initialise une population sans individu
+ *
+ */
+popu initialize_population_vide(popu P1, int longPopu, int longIndiv)
+{
+    int i = 0;
+    P1 = (popu)malloc(sizeof(population));
+    (P1->indivPopu).longIndiv = longIndiv;
+    (P1->indivPopu).indiv = NULL;
+    P1->next = NULL;
+    popu temp = P1;
+
+    while (i < longPopu - 1) {
+        temp->next = (popu)malloc(sizeof(population));
+        (temp->indivPopu).longIndiv = longIndiv;
+        (temp->indivPopu).indiv = NULL;
+        temp->next->next = NULL;
+        temp = temp->next;
+        i++;
+    }
+
+    return P1;
+}
+
+/**
+ * @brief Croise une population selon une probabilité de croisement
+ *
+ * @param P1 Pointeur sur population
+ * @param taille_popu Nombre d'individu dans la population
+ * @param pCroise Probabilité de croisement
+ * @return popu
+ */
+popu croisement_population(popu P1, int longPopu, int longIndiv, float pCroise)
+{
+
     int i = 0;
     popu P2 = NULL;
-    P2 = initialize_population_vide(P2,longPopu,longIndiv);
+    P2 = initialize_population_vide(P2, longPopu, longIndiv);
     popu temp_p2 = P2;
     individu individu_temporaire_1;
     individu individu_temporaire_2;
-    
-    while(i<longPopu){
-        individu_temporaire_1 = selection_random_individu(P1,longPopu);
-        individu_temporaire_2 = selection_random_individu(P1,longPopu);
-        croisement_individu(individu_temporaire_1,individu_temporaire_2,pCroise);
+
+    while (i < longPopu) {
+        individu_temporaire_1 = selection_random_individu(P1, longPopu);
+        individu_temporaire_2 = selection_random_individu(P1, longPopu);
+        croisement_individu(individu_temporaire_1, individu_temporaire_2, pCroise);
         temp_p2->indivPopu = individu_temporaire_1;
         temp_p2 = temp_p2->next;
         ++i;
@@ -312,18 +305,29 @@ popu croisement_population(popu P1,int longPopu,int longIndiv,float pCroise){
     return P2;
 }
 
-popu nGen(popu P1,int longPopu,int longIndiv,float pCroise,int taux_selection,int nombre_generation){ 
+/**
+ * @brief Sous-programme qui repète n-fois les étapes suivantes-->
+ * -Croisement de population
+ * -Trie de la population
+ * -Selection de la population
+ *
+ * @param P1 Pointeur sur population
+ * @param longPopu taille de la population
+ * @param longIndiv Taille d'un individu i.e nombre de Bit
+ * @param pCroise Probabilité de croisement
+ * @return popu
+ */
+popu nGen(popu P1, int longPopu, int longIndiv, float pCroise, int taux_selection, int nombre_generation)
+{
     int i = 0;
-    popu temp =NULL;
-    while(i<nombre_generation){
+    popu temp = NULL;
+    while (i < nombre_generation) {
         temp = P1;
-        P1 = croisement_population(P1,longPopu,longIndiv,pCroise);
-        quick_sort_population(P1,trouver_queue(P1));
-        tSelect(P1,taux_selection,longPopu);
+        P1 = croisement_population(P1, longPopu, longIndiv, pCroise);
+        quick_sort_population(P1, trouver_queue(P1));
+        tSelect(P1, taux_selection, longPopu);
         free_population(temp);
         ++i;
     }
     return P1;
 }
-
-
