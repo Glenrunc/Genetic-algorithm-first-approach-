@@ -1,6 +1,5 @@
 #include "Population.h"
 
-
 /**
  * @brief Ajoute en queux un individu à une population
  *
@@ -57,15 +56,16 @@ popu initialize_population(popu Popu, int longPopu, int longIndiv)
  */
 void affichage_population(popu Popu)
 {
-    if (Popu == NULL) {
-        return;
-    } else {
-        affichage_individu((Popu->indivPopu).indiv);
-        ;
-        printf(" qualite %.2f", qualite_individu(Popu->indivPopu));
-        printf("\n");
-        affichage_population(Popu->next);
+    popu temp = Popu;
+    int i = 1;
+    while(temp != NULL){
+        printf("Individu n°%d ~Decodage(%d)~ : ",i,valeur_base_2_to_base_10(temp->indivPopu));
+        affichage_individu(temp->indivPopu.indiv);
+        printf("  --> Qualite : %.3f\n",qualite_individu(temp->indivPopu));
+        ++i;
+        temp=temp->next;
     }
+    printf("\n");
 }
 
 /**
@@ -150,14 +150,14 @@ void quick_sort_population(popu premierIndividu, popu dernierIndividu)
 void tSelect(popu Popu, int tSelect, int longPopu)
 {
     int i = 0;
-
-    if ((longPopu - tSelect) <= 0) {
+    int reel_t_select = (tSelect * longPopu) /100;
+    if ((longPopu - reel_t_select) <= 0) {
         return;
     } else {
         popu demarrage = Popu;
         popu avancement = Popu;
-        while (i < tSelect) {
-            demarrage = demarrage->next; //  On se place à la position tSelect
+        while (i < reel_t_select) {
+            demarrage = demarrage->next; //  On se place à la position reel_t_select
             i++;
         }
         while (demarrage != NULL) { // Puis on copie chaque individu en partant du début
@@ -317,15 +317,19 @@ popu croisement_population(popu P1, int longPopu, int longIndiv, float pCroise)
  * @param pCroise Probabilité de croisement
  * @return popu
  */
-popu nGen(popu P1, int longPopu, int longIndiv, float pCroise, int taux_selection, int nombre_generation)
+popu nGen(popu P1, int longPopu, int longIndiv, float pCroise, int taux_selection, int nombre_generation,int affichage)
 {
-    int i = 0;
+    int i = 1;
     popu temp = NULL;
-    while (i < nombre_generation) {
+    while (i < nombre_generation+1) {
         temp = P1;
         P1 = croisement_population(P1, longPopu, longIndiv, pCroise);
         quick_sort_population(P1, trouver_queue(P1));
         tSelect(P1, taux_selection, longPopu);
+        if(affichage == 1){
+            printf("Generation n° %d \n",i);
+            affichage_population(P1);
+        }
         free_population(temp);
         ++i;
     }

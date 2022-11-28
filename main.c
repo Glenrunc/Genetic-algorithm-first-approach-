@@ -1,17 +1,35 @@
 #include "Population.h"
-int main(){
-    //Définition des différentes données d'une population
-    srand(time(NULL));
-    int taille_population = 300;
-    int taux_selection = 290;
-    int nombre_generation = 3;
 
+#define BUFFER_SIZE 100
+
+int main()
+{
+    srand(time(NULL));
+
+    // Définition des différentes données d'une population
+    int taille_population, taux_selection, nombre_generation,n = -1;
+
+    //récupération depuis l'utilisateur
+    get_integer(&taille_population,10,200,"population");
+    get_integer(&taux_selection,10,90,"taux de selection");
+    get_integer(&nombre_generation,10,200,"generation");
+    get_integer(&n,0,1,"affichage");
+
+    //Lancement de la simulation
     popu P1 = NULL;
-    P1 = initialize_population(P1,taille_population,taille_individu);
-    P1 = nGen(P1,taille_population,taille_individu,probabilite_croisement,taux_selection,nombre_generation);
-    affichage_population(P1);
+    P1 = initialize_population(P1, taille_population, taille_individu);
+    P1 = nGen(P1, taille_population, taille_individu, probabilite_croisement, taux_selection, nombre_generation,n);
+    quick_sort_population(P1,trouver_queue(P1));
+
+    //affichage du meilleur individu
+    printf("\n MEILLEUR INDIVIDU ~qualite (%.3f)~  ~decodage (%d)~ :  ",qualite_individu(P1->indivPopu),valeur_base_2_to_base_10(P1->indivPopu));
+    affichage_individu(P1->indivPopu.indiv);
+    printf("\n");
+
+    //Libération de la mémoire allouée par la population
     free_population(P1);
-   
-    return 0;
-  
+
+    return EXIT_SUCCESS;
 }
+
+

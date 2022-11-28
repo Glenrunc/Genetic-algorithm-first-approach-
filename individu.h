@@ -21,7 +21,10 @@ typedef struct bit {
     Bit value;
     struct bit* next;
 } listBit;
-
+/**
+ * @brief Pointeur sur listBit
+ * 
+ */
 typedef listBit* lBit;
 /**
  * @brief Structure d'un individu
@@ -84,5 +87,10 @@ float qualite_individu(individu indiv1);
  * @param pCroise Probabilité de croisement
  */
 void croisement_individu(individu indiv1, individu inidv2, float pCroise);
+/**
+ * @brief Utile pour récupérer les paramètres (taille de poupulation, nombre de génération,etc..) de la part de l'utilisateur 
+ * 
+ */
+void get_integer(int* variable, int borne_inf, int borne_sup, char* nom_variable)
 
 #endif

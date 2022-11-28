@@ -1,7 +1,7 @@
 #ifndef __POPULATION_H__
 #define __POPULATION_H__
 
-#include "individu.h"
+#include "Individu.h"
 
 /**
  * @brief Structure de donnée sous forme de liste chaînée représenatant une population
@@ -13,7 +13,10 @@ typedef struct population {
     struct population* next;
 
 } population;
-
+/**
+ * @brief Pointeur sur population 
+ * 
+ */
 typedef population* popu;
 
 /**
@@ -123,6 +126,6 @@ popu croisement_population(popu P1, int longPopu, int longIndiv, float pCroise);
  * @param pCroise Probabilité de croisement
  * @return popu
  */
-popu nGen(popu P1, int longPopu, int longIndiv, float pCroise, int taux_selection, int nombre_generation);
+popu nGen(popu P1, int longPopu, int longIndiv, float pCroise, int taux_selection, int nombre_generation, int affichage);
 
 #endif

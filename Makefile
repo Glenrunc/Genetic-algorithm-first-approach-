@@ -8,4 +8,6 @@ main.o: main.c Population.h individu.h
 	gcc -o main.o -c main.c -W -Wall -pedantic 
 clean:
 	rm -rf *.o *.exe
-	
+	clear
+l:
+	wc *.c *.h -l

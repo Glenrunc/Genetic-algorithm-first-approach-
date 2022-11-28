@@ -1,4 +1,4 @@
-#include "individu.h"
+#include "Individu.h"
 
 /**
  * @brief ajoute un bit à la liste chaînée listbit
@@ -134,5 +134,30 @@ void croisement_individu(individu indiv1, individu indiv2, float pCroise)
         }
         temp1 = temp1->next;
         temp2 = temp2->next;
+    }
+}
+/**
+ * @brief Utile pour récupérer les paramètres (taille de poupulation, nombre de génération,etc..) de la part de l'utilisateur
+ *
+ */
+void get_integer(int* variable, int borne_inf, int borne_sup, char* nom_variable)
+{
+    char buffer[BUFFER_SIZE];
+    if (borne_inf == 0 && borne_sup == 1) {
+        printf("Voulez vous affichez les generations ? (1 pour oui et 0 pour non)\n");
+    } else {
+        printf("Choisissez une taille de %s [%d,%d]\n", nom_variable, borne_inf, borne_sup);
+    }
+    scanf("%s", buffer);
+    fflush(stdin);
+
+    if (sscanf(buffer, "%d", variable) == EOF || *variable < borne_inf || *variable > borne_sup) {
+        do {
+
+            printf("Entre %d et %d\n", borne_inf, borne_sup);
+            scanf("%s", buffer);
+            fflush(stdin);
+
+        } while (sscanf(buffer, "%d", variable) == EOF || *variable < 20 || *variable > 200);
     }
 }
