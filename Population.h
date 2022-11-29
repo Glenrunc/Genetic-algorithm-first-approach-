@@ -75,12 +75,6 @@ void quick_sort_population(popu premierIndividu, popu dernierIndividu);
  */
 void tSelect(popu Popu, int tSelect, int longPopu);
 /**
- * @brief Libère la mémoire allouée pour un individu
- *
- * @param Indiv Pointeur sur liste de bit représentant un individu
- */
-void free_individu(lBit Indiv);
-/**
  * @brief Libère la mémoire allouée pour une population
  *
  * @param Popu Pointeur sur liste chaînée population

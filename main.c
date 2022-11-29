@@ -1,7 +1,5 @@
 #include "Population.h"
 
-#define BUFFER_SIZE 100
-
 int main()
 {
     srand(time(NULL));
@@ -19,9 +17,9 @@ int main()
     popu P1 = NULL;
     P1 = initialize_population(P1, taille_population, taille_individu);
     P1 = nGen(P1, taille_population, taille_individu, probabilite_croisement, taux_selection, nombre_generation,n);
-    quick_sort_population(P1,trouver_queue(P1));
 
     //affichage du meilleur individu
+    quick_sort_population(P1,trouver_queue(P1));
     printf("\n MEILLEUR INDIVIDU ~qualite (%.3f)~  ~decodage (%d)~ :  ",qualite_individu(P1->indivPopu),valeur_base_2_to_base_10(P1->indivPopu));
     affichage_individu(P1->indivPopu.indiv);
     printf("\n");

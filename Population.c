@@ -59,9 +59,9 @@ void affichage_population(popu Popu)
     popu temp = Popu;
     int i = 1;
     while(temp != NULL){
-        printf("Individu n°%d ~Decodage(%d)~ : ",i,valeur_base_2_to_base_10(temp->indivPopu));
+        printf("Individu n°%d \t   ~Decodage(%d)~   \t: ",i,valeur_base_2_to_base_10(temp->indivPopu));
         affichage_individu(temp->indivPopu.indiv);
-        printf("  --> Qualite : %.3f\n",qualite_individu(temp->indivPopu));
+        printf("  \t --> Qualite : %.3f\n",qualite_individu(temp->indivPopu));
         ++i;
         temp=temp->next;
     }
@@ -169,20 +169,7 @@ void tSelect(popu Popu, int tSelect, int longPopu)
     }
     return;
 }
-
-/**
- * @brief Libère la mémoire allouée pour un individu
- *
- * @param Indiv Pointeur sur liste de bit représentant un individu
- */
-void free_individu(lBit Indiv)
-{
-    if (Indiv == NULL) {
-        return;
-    }
-    free_individu(Indiv->next);
-    free(Indiv);
-}
+    
 
 /**
  * @brief Libère la mémoire allouée pour une population
@@ -327,7 +314,7 @@ popu nGen(popu P1, int longPopu, int longIndiv, float pCroise, int taux_selectio
         quick_sort_population(P1, trouver_queue(P1));
         tSelect(P1, taux_selection, longPopu);
         if(affichage == 1){
-            printf("Generation n° %d \n",i);
+            printf("Generation n° %d \n\n",i);
             affichage_population(P1);
         }
         free_population(temp);

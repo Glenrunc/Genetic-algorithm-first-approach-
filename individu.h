@@ -11,6 +11,7 @@
 #define taille_individu 16
 #define probabilite_croisement 0.5
 #define PUI(n) (1 << (n))
+#define BUFFER_SIZE 100
 
 typedef unsigned char Bit;
 /**
@@ -91,6 +92,12 @@ void croisement_individu(individu indiv1, individu inidv2, float pCroise);
  * @brief Utile pour récupérer les paramètres (taille de poupulation, nombre de génération,etc..) de la part de l'utilisateur 
  * 
  */
-void get_integer(int* variable, int borne_inf, int borne_sup, char* nom_variable)
+void get_integer(int* variable, int borne_inf, int borne_sup, char* nom_variable);
+/**
+ * @brief Libère la mémoire allouée pour un individu
+ *
+ * @param Indiv Pointeur sur liste de bit représentant un individu
+ */
+void free_individu(lBit Indiv);
 
 #endif

@@ -158,6 +158,19 @@ void get_integer(int* variable, int borne_inf, int borne_sup, char* nom_variable
             scanf("%s", buffer);
             fflush(stdin);
 
-        } while (sscanf(buffer, "%d", variable) == EOF || *variable < 20 || *variable > 200);
+        } while (sscanf(buffer, "%d", variable) == EOF || *variable < borne_inf || *variable > borne_sup);
     }
+}
+/**
+ * @brief Libère la mémoire allouée pour un individu
+ *
+ * @param Indiv Pointeur sur liste de bit représentant un individu
+ */
+void free_individu(lBit Indiv)
+{
+    if (Indiv == NULL) {
+        return;
+    }
+    free_individu(Indiv->next);
+    free(Indiv);
 }
