@@ -3,7 +3,7 @@
 int main()
 {
     srand(time(NULL));
-
+    //VersionBeta
     // Définition des différentes données d'une population
     int taille_population, taux_selection, nombre_generation,n = -1;
 
