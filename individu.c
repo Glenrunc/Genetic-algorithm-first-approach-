@@ -96,6 +96,26 @@ int valeur_base_2_to_base_10(individu indiv1)
 
     return valueIndiv;
 }
+/**
+ * @brief Copie un individu
+ *
+ * @param Individu Structure représentant un individu
+ * @return individu
+ */
+individu copie_individu(individu Individu)
+{
+    individu new_individu;
+    new_individu.longIndiv = Individu.longIndiv;
+    new_individu.indiv = NULL;
+    lBit temp = Individu.indiv;
+
+    while (temp != NULL) {
+        new_individu.indiv = ajouter_queue_bit(new_individu.indiv, temp->value);
+        temp = temp->next;
+    }
+
+    return new_individu;
+}
 
 /**
  * @brief Calcul la qualité d'un individu selon une fonction précise

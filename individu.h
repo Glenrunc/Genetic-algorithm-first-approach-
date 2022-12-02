@@ -74,6 +74,13 @@ void affichage_individu(lBit l);
  */
 int valeur_base_2_to_base_10(individu indiv1);
 /**
+ * @brief Copie un individu
+ *
+ * @param Individu Structure représentant un individu
+ * @return individu
+ */
+individu copie_individu(individu Individu);
+/**
  * @brief Calcul la qualité d'un individu selon une fonction précise
  *
  * @param indiv1 Structure représentant un individu

@@ -81,13 +81,6 @@ void tSelect(popu Popu, int tSelect, int longPopu);
  */
 void free_population(popu Popu);
 /**
- * @brief Copie un individu
- *
- * @param Individu Structure représentant un individu
- * @return individu
- */
-individu copie_individu(individu Individu);
-/**
  * @brief Selectionne un individu aléatoirement dans une population
  *
  * @param P1 Pointeur sur population

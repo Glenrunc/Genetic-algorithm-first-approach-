@@ -188,27 +188,6 @@ void free_population(popu Popu)
 }
 
 /**
- * @brief Copie un individu
- *
- * @param Individu Structure représentant un individu
- * @return individu
- */
-individu copie_individu(individu Individu)
-{
-    individu new_individu;
-    new_individu.longIndiv = Individu.longIndiv;
-    new_individu.indiv = NULL;
-    lBit temp = Individu.indiv;
-
-    while (temp != NULL) {
-        new_individu.indiv = ajouter_queue_bit(new_individu.indiv, temp->value);
-        temp = temp->next;
-    }
-
-    return new_individu;
-}
-
-/**
  * @brief Selectionne un individu aléatoirement dans une population
  *
  * @param P1 Pointeur sur population
