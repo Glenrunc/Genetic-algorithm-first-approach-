@@ -116,18 +116,28 @@ individu copie_individu(individu Individu)
 
     return new_individu;
 }
-
 /**
- * @brief Calcul la qualité d'un individu selon une fonction précise
- *
+ * @brief Calcul la qualité d'un individu selon f2
  * @param indiv1 Structure représentant un individu
  * @return float Qualité de l'individu
  */
-float qualite_individu(individu indiv1)
+float qualite_individu_f2(individu indiv1)
 {
     int valeurIndiv = valeur_base_2_to_base_10(indiv1);
     float X = (valeurIndiv / (float)(PUI(indiv1.longIndiv))) * (B - A) + A;
     return -log(X);
+}
+/**
+ * @brief Calcul la qualité d'un individu selon f1 
+ *
+ * @param indiv1 Structure représentant un individu
+ * @return float Qualité de l'individu
+ */
+float qualite_individu_f1(individu indiv1)
+{
+    int valeurIndiv = valeur_base_2_to_base_10(indiv1);
+    float X = (valeurIndiv / (float)(PUI(indiv1.longIndiv))) * (B - A) + A;
+    return -(X*X);
 }
 
 /**

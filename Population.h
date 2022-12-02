@@ -26,8 +26,7 @@ typedef population* popu;
  * @param longIndiv Taille d'un individu i.e nombre de Bit
  * @return popu Nouvelle liste chaînée avec nouvel individu
  */
-popu ajouter_queue_individu(popu Popu, int longIndiv);
-
+popu ajouter_tete_individu(popu Popu, int longIndiv);
 /**
  * @brief Initialise une population
  *

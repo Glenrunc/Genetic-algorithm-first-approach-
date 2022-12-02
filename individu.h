@@ -81,12 +81,19 @@ int valeur_base_2_to_base_10(individu indiv1);
  */
 individu copie_individu(individu Individu);
 /**
- * @brief Calcul la qualité d'un individu selon une fonction précise
+ * @brief Calcul la qualité d'un individu selon f2 
  *
  * @param indiv1 Structure représentant un individu
  * @return float Qualité de l'individu
  */
-float qualite_individu(individu indiv1);
+float qualite_individu_f2(individu indiv1);
+/**
+ * @brief Calcul la qualité d'un individu selon une f1 
+ *
+ * @param indiv1 Structure représentant un individu
+ * @return float Qualité de l'individu
+ */
+float qualite_individu_f1(individu indiv1);
 /**
  * @brief Croise deux individu selon une probabilité de croisement bit à bit
  *

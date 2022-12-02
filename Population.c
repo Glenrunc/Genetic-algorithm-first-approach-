@@ -7,27 +7,20 @@
  * @param longIndiv Taille d'un individu i.e nombre de Bit
  * @return popu Nouvelle liste chaînée avec nouvel individu
  */
-popu ajouter_queue_individu(popu Popu, int longIndiv)
-{
-
+popu ajouter_tete_individu(popu Popu, int longIndiv){
+    
     popu newIndiv = (population*)malloc(sizeof(population));
+    (newIndiv->indivPopu).indiv = NULL;
     (newIndiv->indivPopu).indiv = initialize_individu_recurssif((newIndiv->indivPopu).indiv, longIndiv);
     (newIndiv->indivPopu).longIndiv = longIndiv;
     newIndiv->next = NULL;
 
-    if (Popu != NULL) {
-
-        popu temp = Popu;
-        while (temp->next != NULL) {
-            temp = temp->next;
-        }
-
-        temp->next = newIndiv;
-    } else {
-        Popu = newIndiv;
+    if(Popu == NULL){
+        return newIndiv;
+    }else{
+        newIndiv->next = Popu;
     }
-
-    return Popu;
+    return newIndiv;
 }
 
 /**
@@ -44,7 +37,7 @@ popu initialize_population(popu Popu, int longPopu, int longIndiv)
     if (longPopu == 0) {
         return Popu;
     } else {
-        Popu = ajouter_queue_individu(Popu, longIndiv);
+        Popu = ajouter_tete_individu(Popu, longIndiv);
         return initialize_population(Popu, longPopu - 1, longIndiv);
     }
 }
@@ -61,7 +54,7 @@ void affichage_population(popu Popu)
     while(temp != NULL){
         printf("Individu n°%d \t   ~Decodage(%d)~   \t: ",i,valeur_base_2_to_base_10(temp->indivPopu));
         affichage_individu(temp->indivPopu.indiv);
-        printf("  \t --> Qualite : %.3f\n",qualite_individu(temp->indivPopu));
+        printf("  \t --> Qualite : %.3f\n",qualite_individu_f2(temp->indivPopu));
         ++i;
         temp=temp->next;
     }
@@ -99,7 +92,7 @@ popu partionnement(popu premierIndividu, popu dernierIndividu)
     individu temp;
     while (avancement != NULL && avancement != dernierIndividu) {
 
-        if (qualite_individu(avancement->indivPopu) > qualite_individu(dernierIndividu->indivPopu)) {
+        if (qualite_individu_f2(avancement->indivPopu) > qualite_individu_f2(dernierIndividu->indivPopu)) {
             pivot = premierIndividu;
 
             temp = premierIndividu->indivPopu;

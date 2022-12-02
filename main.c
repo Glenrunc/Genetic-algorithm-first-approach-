@@ -20,7 +20,7 @@ int main()
 
     //affichage du meilleur individu
     quick_sort_population(P1,trouver_queue(P1));
-    printf("\n MEILLEUR INDIVIDU ~qualite (%.3f)~  ~decodage (%d)~ :  ",qualite_individu(P1->indivPopu),valeur_base_2_to_base_10(P1->indivPopu));
+    printf("\n MEILLEUR INDIVIDU ~qualite (%.3f)~  ~decodage (%d)~ :  ",qualite_individu_f2(P1->indivPopu),valeur_base_2_to_base_10(P1->indivPopu));
     affichage_individu(P1->indivPopu.indiv);
     printf("\n");
 
