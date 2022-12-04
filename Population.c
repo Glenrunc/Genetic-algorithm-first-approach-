@@ -160,7 +160,8 @@ void tSelect(popu Popu, int tSelect, int longPopu)
             avancement = avancement->next;
         }
     }
-    return;
+    
+    
 }
     
 

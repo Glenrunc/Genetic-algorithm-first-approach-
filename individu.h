@@ -10,7 +10,7 @@
 #define B 5
 #define taille_individu 16
 #define probabilite_croisement 0.5
-#define PUI(n) (1 << (n))
+#define PUI(n) (1 << (n)) // puissance de deux 
 #define BUFFER_SIZE 100
 
 typedef unsigned char Bit;
