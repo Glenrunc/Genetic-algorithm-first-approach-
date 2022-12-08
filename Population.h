@@ -7,24 +7,24 @@
  * @brief Structure de donnée sous forme de liste chaînée représenatant une population
  *
  */
-typedef struct population {
+typedef struct population{
 
     individu indivPopu;
-    struct population* next;
+    struct population *next;
 
 } population;
 /**
- * @brief Pointeur sur population 
- * 
+ * @brief Pointeur sur population
+ *
  */
-typedef population* popu;
+typedef population *popu;
 
 /**
  * @brief Ajoute en queux un individu à une population
  *
  * @param Popu Pointeur sur liste chaînée population
  * @param longIndiv Taille d'un individu i.e nombre de Bit
- * @return popu Nouvelle liste chaînée avec nouvel individu
+ * @return popu liste chaînée avec nouvel individu
  */
 popu ajouter_tete_individu(popu Popu, int longIndiv);
 /**

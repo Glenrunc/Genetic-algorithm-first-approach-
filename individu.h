@@ -10,7 +10,7 @@
 #define B 5
 #define taille_individu 16
 #define probabilite_croisement 0.5
-#define PUI(n) (1 << (n)) // puissance de deux 
+#define PUI(n) (1 << (n)) // puissance de deux
 #define BUFFER_SIZE 100
 
 typedef unsigned char Bit;
@@ -18,20 +18,20 @@ typedef unsigned char Bit;
  * @brief Structure de donnée sous forme de liste chaînée représentant une liste de bit
  *
  */
-typedef struct bit {
+typedef struct bit{
     Bit value;
-    struct bit* next;
+    struct bit *next;
 } listBit;
 /**
  * @brief Pointeur sur listBit
- * 
+ *
  */
-typedef listBit* lBit;
+typedef listBit *lBit;
 /**
  * @brief Structure d'un individu
  *
  */
-typedef struct {
+typedef struct{
     int longIndiv;
     lBit indiv;
 } individu;
@@ -81,14 +81,14 @@ int valeur_base_2_to_base_10(individu indiv1);
  */
 individu copie_individu(individu Individu);
 /**
- * @brief Calcul la qualité d'un individu selon f2 
+ * @brief Calcul la qualité d'un individu selon f2
  *
  * @param indiv1 Structure représentant un individu
  * @return float Qualité de l'individu
  */
 float qualite_individu_f2(individu indiv1);
 /**
- * @brief Calcul la qualité d'un individu selon une f1 
+ * @brief Calcul la qualité d'un individu selon une f1
  *
  * @param indiv1 Structure représentant un individu
  * @return float Qualité de l'individu
@@ -103,10 +103,10 @@ float qualite_individu_f1(individu indiv1);
  */
 void croisement_individu(individu indiv1, individu inidv2, float pCroise);
 /**
- * @brief Utile pour récupérer les paramètres (taille de poupulation, nombre de génération,etc..) de la part de l'utilisateur 
- * 
+ * @brief Utile pour récupérer les paramètres (taille de poupulation, nombre de génération,etc..) de la part de l'utilisateur
+ *
  */
-void get_integer(int* variable, int borne_inf, int borne_sup, char* nom_variable);
+void get_integer(int *variable, int borne_inf, int borne_sup, char *nom_variable);
 /**
  * @brief Libère la mémoire allouée pour un individu
  *
