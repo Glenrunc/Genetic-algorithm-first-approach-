@@ -16,6 +16,7 @@ int main()
     // Lancement de la simulation
     popu P1 = NULL;
     P1 = initialize_population(P1, taille_population, taille_individu);
+    affichage_population(P1);
     P1 = nGen(P1, taille_population, taille_individu, probabilite_croisement, taux_selection, nombre_generation, n);
 
     // affichage du meilleur individu
