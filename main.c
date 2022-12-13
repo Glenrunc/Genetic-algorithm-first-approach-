@@ -7,7 +7,7 @@ int main()
     //  Définition des différentes données d'une population
     int taille_population, taux_selection, nombre_generation, n = -1;
 
-    // récupération depuis l'utilisateur
+    // récupération depuis stdin 
     get_integer(&taille_population, 20, 200, "population");
     get_integer(&taux_selection, 10, 90, "taux de selection");
     get_integer(&nombre_generation, 20, 200, "generation");

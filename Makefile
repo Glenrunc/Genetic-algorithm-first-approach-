@@ -11,3 +11,5 @@ clean:
 	clear
 l:
 	wc *.c *.h -l
+v: 
+	valgrind --track-origins=yes ./main.exe
