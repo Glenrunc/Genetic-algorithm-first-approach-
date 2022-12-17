@@ -9,7 +9,3 @@ main.o: main.c
 clean:
 	rm -rf *.o *.exe
 	clear
-l:
-	wc *.c *.h -l
-v: 
-	valgrind --track-origins=yes ./main.exe
