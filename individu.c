@@ -148,10 +148,8 @@ void croisement_individu(individu indiv1, individu indiv2, float pCroise){
     lBit temp2 = l2;
     Bit temp;
 
-    while (temp1 != NULL)
-    {
-        if (pCroise * 100 > rand() % 100)
-        {
+    while (temp1 != NULL){
+        if (pCroise * 100 > rand() % 100){
             temp = temp1->value;
             temp1->value = temp2->value;
             temp2->value = temp;
